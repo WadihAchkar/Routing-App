@@ -1,0 +1,146 @@
+ Dokumentation --> https://angular.io/guide/router
+---------------
+
+Kommandozeile aufmachen und dann folgendes eingeben und ausführen:
+
+ng new MyApp --routing --prefix Finn
+
+1) Was macht Routing überhaupt?
+  -----------------------------
+
+- Es ist ein logischerer Weg mit dem man Komponenten activieren kann.
+- Damit sagen wir dem Angular-Router, welche Komponente er zu aktivieren hat.
+
+Wenn eine Anwendung aus vielen Komponenten besteht, kann es nicht sein, dass alle diese Komponenten gleichzeitig angezeigt werden,
+sobald die Anwendung am Laufen ist, und hier kommt das Routing ins Spiel.
+
+Keine Sorge wenn dir das nun nicht viel sagt, wir werden uns noch später mehr damit beschäftigen.
+
+
+2) Eine Komponente zu aktivieren bedeutet einfach
+  ------------------------------------------------
+
+  Sobald der Router die passende Route identifiziert hat, aktiviert er die zugehörige Komponente;
+- Das bedeutet, dass eine Instanz der Komponente erstellt und ihre Ansicht innerhalb des vorgesehenen <router-outlet> im Layout der Anwendung gerendert wird.
+- Anders gesagt:
+  Das Ergebnis der Aktivierung wird innerhalb des festgelegten <router-outlet> angezeigt.
+
+- Mit diesem dynamischen Routing- und Komponentenaktivierungsmechanismus können wir Single-Page-Applikationen (SPAs)
+  mit mehreren Ansichten und der Navigation zwischen ihnen erstellen.
+
+
+3) AppRoutingModule
+  ------------------
+
+- Das ist einfach nur eine Routen-Konfigurationsdatei.
+- Durch diese Konfiguration wird dem Router mitgeteilt, welche Komponente beim Zugriff auf eine bestimmte URL zu aktivieren ist.
+
+Wir wissen schon dass unser "app.module" das Wurzel Modul ist.
+Alles, was von AppRoutingModule exportiert wird, kann von AppModule importiert werden.
+
+4) models folder (Die Erstellung dieses Ordners dient organisatorischen Zwecken)
+  ---------------
+
+- Creating a 'models' folder in Angular development is a common practice for several reasons.
+
+  It is a best practice that promotes code organization,
+  maintainability, reusability, and type safety, making your application easier to manage and understand as it grows.
+
+5) Nesting routes
+  ----------------
+
+As our application grows more complex, we might want to create routes that are relative to a component other than the root component.
+
+
+6) Preventing unauthorized access
+  --------------------------------
+
+- ng generate guard my-guard
+
+
+7) Understanding the following code blocks:
+     ----------------------------------------
+
+.......................... First block .........................
+
+constructor(private route: ActivatedRoute)
+
+- Explanation: 'ActivatedRoute' simply allows us to extract information from the URL. Here's a detailed explanation of the syntax:
+  ............
+
+- `private`: This is an access modifier in TypeScript.
+   It's used to specify the visibility or accessibility of a class property or constructor parameter.
+   In this case, `private` means that the `route` variable is accessible only within the `StudentdetailsComponent` class.
+
+- `route`: This is a variable name that represents an instance of the `ActivatedRoute` class.
+   The `ActivatedRoute` is a service provided by Angular's Router module.
+   It's used to access information about the currently activated route, including route parameters.
+
+- `: ActivatedRoute`: This part indicates the type of the `route` variable.
+   It's specifying that `route` is an instance of the `ActivatedRoute` class.
+
+So, in simple terms,
+the `private route: ActivatedRoute` line is declaring a private class property named `route`,
+which is an instance of the `ActivatedRoute` class.
+This allows the `StudentdetailsComponent` to access and use the `ActivatedRoute` service to retrieve information about the current route, such as route parameters.
+In the `ngOnInit` method, it subscribes to changes in route parameters and logs them to the console when the route changes.
+
+...................... End of first block ......................
+
+
+.......................... Second block .........................
+
+ngOnInit() {
+  this.route.params.subscribe((params) => {
+    console.log(params);
+  })
+
+- Explanation:
+  ............
+
+1. **this.route.params**: `this.route` is an object representing the current route in your Angular application.
+The `.params` property of `this.route` is used to access the parameters that are part of the current route's URL.
+
+2. **.subscribe((params) => { ... })**: This part of the code is using the `subscribe` method. In Angular,
+you often use `subscribe` to listen for changes in something, like route parameters in this case.
+When there's a change in the route parameters, the code inside the curly braces `{ ... }` will be executed.
+ 
+3. **(params)**: Inside the parentheses, you define a function that takes one parameter called `params`. This parameter represents the route parameters.
+
+4. (params) => { ... }: This is an arrow function in TypeScript. It's a way to define a small function.
+In this case, it takes one parameter called params, which represents the route parameters.
+
+5. params['id']: This is accessing a specific parameter in the URL. This code is getting the value of the id parameter.
+For example, if the URL is /something/123, this line would log 123 to the console.
+
+So, whenever the route parameters change, take those parameters and log them to the console so that we can see what they are.
+
+...................... End of second block ......................
+
+8) <Student[]>
+
+Is a type assertion or type casting in TypeScript. It's used to tell TypeScript what type of data you expect to receive from the API response.
+
+
+
+----------------- Fazit -----------------
+
+What is Routing all about?:
+
+Routing in web development, including Angular,
+is all about determining how different URLs or paths within a web application map to specific views or components.
+It allows users to navigate between different sections or pages of a single-page application (SPA)
+while dynamically loading and displaying the appropriate content based on the URL,
+enhancing the user experience and providing a structured way to organize
+and manage the application's functionality and UI.
+
+----------------- Fazit Ende -----------------
+
+Bemerkung:
+----------
+
+Es gibt bestimmt noch andere Wege, Komponenten zu aktivieren.
+
+(Structural directives wie: *ngIf, *ngSwitch, <ng-content> directive + Component Factory Resolver)
+
+Das ist aber gerade nicht unser Thema.
