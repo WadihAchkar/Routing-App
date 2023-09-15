@@ -1,0 +1,12 @@
+<!-- <ul>
+    <li><a routerLink="/studentdetails/16">Student 1</a></li>
+    <li><a routerLink="/studentdetails/15">Student 2</a></li>
+    <li><a routerLink="/studentdetails/25">Student 3</a></li>
+    <li><a routerLink="/studentdetails/20">Student 4</a></li>
+</ul> -->
+
+<ul> 
+    <li *ngFor="let s of AllStudents">
+        <a [routerLink]="['/studentdetails', s.id]">{{s.name}}</a>
+    </li>
+</ul> 
